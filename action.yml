@@ -1,0 +1,17 @@
+name: Skpr Exec
+description: Execute a command on a Skpr environment
+inputs:
+  env:
+    description: The environment
+    required: true
+  command:
+    description: The command
+    required: true
+runs:
+  using: composite
+  steps:
+    - id: skpr-post-deploy
+      run: |
+        echo "Executing command: ${{ inputs.command }} on ${{ inputs.env }}"
+        skpr exec ${{ inputs.env }} -- ${{ inputs.command }}
+      shell: bash
